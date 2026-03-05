@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TechFlow Solutions – Your Digital Partner</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Open Sans', sans-serif; color: #333; background: #fff; }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+    .logo { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 22px; color: #4f46e5; letter-spacing: -0.5px; }
+    .logo span { color: #333; }
+    nav ul { list-style: none; display: flex; gap: 32px; }
+    nav ul li a { text-decoration: none; font-size: 14px; color: #555; font-weight: 600; }
+    nav ul li a:hover { color: #4f46e5; }
+    .nav-cta { background: #4f46e5; color: #fff !important; padding: 9px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; text-decoration: none; }
+    .nav-cta:hover { background: #4338ca; }
+
+    /* ── HERO ── */
+    .hero { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: #fff; text-align: center; padding: 100px 40px; }
+    .hero-badge { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; padding: 6px 16px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 24px; }
+    .hero h1 { font-family: 'Poppins', sans-serif; font-size: 52px; font-weight: 700; line-height: 1.15; margin-bottom: 20px; max-width: 700px; margin-left: auto; margin-right: auto; }
+    .hero p { font-size: 18px; opacity: 0.88; max-width: 520px; margin: 0 auto 36px; line-height: 1.7; }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #fff; color: #4f46e5; padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 15px; text-decoration: none; display: inline-block; }
+    .btn-secondary { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.6); padding: 14px 32px; border-radius: 8px; font-weight: 600; font-size: 15px; text-decoration: none; display: inline-block; }
+
+    /* ── SCALABILITY CEILING BANNER ── */
+    /* Subtle: the "scale" CTA is greyed out and disabled-looking, with a tooltip */
+    .ceiling-note {
+      display: inline-block;
+      position: relative;
+      cursor: not-allowed;
+    }
+    .ceiling-note .btn-secondary {
+      opacity: 0.45;
+      pointer-events: none;
+      border-color: rgba(255,255,255,0.3);
+      position: relative;
+    }
+    .ceiling-tooltip {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.82);
+      color: #fff;
+      font-size: 11.5px;
+      line-height: 1.5;
+      padding: 8px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .ceiling-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: rgba(0,0,0,0.82);
+    }
+    .ceiling-note:hover .ceiling-tooltip { opacity: 1; }
+
+    /* ── LOGOS ── */
+    .logos-bar { background: #f9f9f9; border-bottom: 1px solid #ececec; text-align: center; padding: 28px 40px; }
+    .logos-bar p { font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; margin-bottom: 18px; }
+    .logo-row { display: flex; justify-content: center; align-items: center; gap: 48px; flex-wrap: wrap; }
+    /* Cookie-cutter brand dilution: every logo-pill looks identical — intentional */
+    .logo-pill {
+      background: #e8e8e8;
+      border-radius: 6px;
+      padding: 8px 22px;
+      font-weight: 700;
+      font-size: 13px;
+      color: #aaa;
+      letter-spacing: 0.5px;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+    }
+    /* Subtle: a tiny "same template as [competitor]" whisper on hover */
+    .logo-pill::after {
+      content: attr(data-same);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #222;
+      color: #ccc;
+      font-size: 10.5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+    }
+    .logo-pill:hover::after { opacity: 1; }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 40px; }
+    .section-label { text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #4f46e5; margin-bottom: 12px; }
+    h2 { font-family: 'Poppins', sans-serif; font-size: 36px; font-weight: 700; text-align: center; color: #111; margin-bottom: 14px; }
+    .section-sub { text-align: center; color: #777; font-size: 16px; max-width: 520px; margin: 0 auto 56px; line-height: 1.7; }
+
+    /* ── FEATURES ── */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
+    .feature-card { background: #f8f8ff; border: 1px solid #ebebf5; border-radius: 12px; padding: 32px 28px; text-align: left; position: relative; }
+    .feature-icon { width: 48px; height: 48px; background: #ede9fe; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; }
+    .feature-card h3 { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 700; color: #111; margin-bottom: 10px; }
+    .feature-card p { font-size: 14px; color: #666; line-height: 1.7; }
+
+    /* Strategy void: "Custom Logic" feature card has a greyed locked state */
+    .feature-card.locked {
+      opacity: 0.55;
+      cursor: not-allowed;
+      position: relative;
+    }
+    .feature-card.locked::after {
+      content: '🔐 Upgrade required — custom logic not available on your plan';
+      position: absolute;
+      inset: 0;
+      background: rgba(248,248,255,0.92);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #666;
+      padding: 20px;
+      text-align: center;
+      line-height: 1.6;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .feature-card.locked:hover::after { opacity: 1; }
+    .feature-card.locked:hover { opacity: 1; }
+
+    /* ── HOW IT WORKS ── */
+    .how-section { background: #f5f5ff; }
+    .steps { display: flex; gap: 0; max-width: 900px; margin: 0 auto; position: relative; }
+    .steps::before { content: ''; position: absolute; top: 28px; left: 14%; right: 14%; height: 2px; background: #c7d2fe; }
+    .step { flex: 1; text-align: center; padding: 0 16px; position: relative; }
+    .step-num { width: 56px; height: 56px; background: #4f46e5; color: #fff; border-radius: 50%; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; position: relative; z-index: 1; }
+    .step h3 { font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; color: #111; }
+    .step p { font-size: 13px; color: #777; line-height: 1.6; }
+    /* Step 4: the hidden "migrate later" step, faded out */
+    .step.hidden-step { opacity: 0.28; position: relative; }
+    .step.hidden-step .step-num { background: #ccc; }
+    .step.hidden-step:hover { opacity: 1; transition: opacity 0.3s; }
+    .step.hidden-step:hover .step-num { background: #e53e3e; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .testimonial-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 28px 24px; }
+    .stars { color: #f59e0b; font-size: 16px; margin-bottom: 14px; }
+    .testimonial-card p { font-size: 14px; color: #555; line-height: 1.75; margin-bottom: 18px; font-style: italic; }
+    .reviewer { display: flex; align-items: center; gap: 12px; }
+    /* Cookie-cutter: all avatars are the same gradient — intentional brand sameness */
+    .avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #a5b4fc, #7c3aed); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 15px; font-family: 'Poppins', sans-serif; flex-shrink: 0; }
+    .reviewer-info strong { display: block; font-size: 14px; font-weight: 700; color: #222; }
+    .reviewer-info span { font-size: 12px; color: #999; }
+
+    /* ── PRICING — THE ILLUSION OF CHEAP ── */
+    .pricing-section { background: #fafafa; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 960px; margin: 0 auto; }
+    .pricing-card { background: #fff; border: 1px solid #e0e0e0; border-radius: 14px; padding: 36px 28px; text-align: center; position: relative; }
+    .pricing-card.popular { border-color: #4f46e5; border-width: 2px; }
+    .popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #4f46e5; color: #fff; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+    .pricing-card h3 { font-family: 'Poppins', sans-serif; font-size: 16px; font-weight: 700; color: #333; margin-bottom: 16px; }
+    .price { font-family: 'Poppins', sans-serif; font-size: 42px; font-weight: 700; color: #111; line-height: 1; }
+    .price sup { font-size: 20px; vertical-align: top; margin-top: 8px; display: inline-block; }
+    .price-mo { font-size: 14px; color: #999; font-family: 'Open Sans', sans-serif; font-weight: 400; }
+    .price-desc { font-size: 13px; color: #999; margin: 10px 0 24px; }
+    .pricing-features { list-style: none; text-align: left; margin-bottom: 28px; }
+    .pricing-features li { font-size: 14px; color: #555; padding: 7px 0; border-bottom: 1px solid #f0f0f0; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+    .pricing-features li::before { content: '✓'; color: #4f46e5; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+    /* Fine-print asterisk items */
+    .pricing-features li.caveat::before { content: '*'; color: #f59e0b; }
+    .pricing-features li.caveat { color: #999; font-size: 12.5px; }
+    .pricing-features li.locked-feat::before { content: '✕'; color: #ccc; }
+    .pricing-features li.locked-feat { color: #bbb; text-decoration: line-through; font-size: 13px; }
+
+    /* The real cost tooltip on the $15 starter price */
+    .price-wrapper { position: relative; display: inline-block; cursor: help; }
+    .price-real-cost {
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      color: #e2e8f0;
+      font-size: 11.5px;
+      line-height: 1.7;
+      padding: 10px 14px;
+      border-radius: 8px;
+      width: 220px;
+      text-align: left;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      z-index: 10;
+    }
+    .price-real-cost strong { color: #fc8181; display: block; margin-bottom: 4px; }
+    .price-real-cost::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: #1a1a2e; }
+    .price-wrapper:hover .price-real-cost { opacity: 1; }
+
+    .btn-plan { display: block; width: 100%; padding: 13px; border-radius: 8px; font-weight: 700; font-size: 14px; text-align: center; text-decoration: none; cursor: pointer; font-family: 'Poppins', sans-serif; }
+    .btn-plan-outline { border: 2px solid #4f46e5; color: #4f46e5; background: transparent; }
+    .btn-plan-filled { background: #4f46e5; color: #fff; border: 2px solid #4f46e5; }
+
+    /* ── FAQ ── */
+    .faq-section { max-width: 720px; margin: 0 auto; }
+    .faq-section.padded { padding: 80px 40px; }
+    .faq-item { border-bottom: 1px solid #ececec; padding: 22px 0; }
+    .faq-q { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 15px; color: #111; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+    .faq-q::after { content: '+'; font-size: 20px; color: #4f46e5; }
+    .faq-a { font-size: 14px; color: #666; line-height: 1.75; }
+    /* Strategy void: the "Can I customise my site fully?" answer is… revealing */
+    .faq-a .caveat-inline { color: #c05621; font-style: italic; }
+
+    /* ── BRAND COMPARISON — cookie-cutter dilution ── */
+    .lookalike-bar {
+      background: #fff8f0;
+      border-top: 1px solid #fde68a;
+      border-bottom: 1px solid #fde68a;
+      padding: 18px 40px;
+      text-align: center;
+    }
+    .lookalike-bar p {
+      font-size: 12.5px;
+      color: #92400e;
+      line-height: 1.6;
+    }
+    .lookalike-bar p strong { color: #78350f; }
+    .lookalike-bar .same-sites {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .same-tag {
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: #92400e;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; text-align: center; padding: 80px 40px; }
+    .cta-banner h2 { color: #fff; margin-bottom: 14px; }
+    .cta-banner p { font-size: 17px; opacity: 0.88; max-width: 480px; margin: 0 auto 36px; line-height: 1.7; }
+    .cta-banner .btn-primary { font-size: 16px; padding: 16px 40px; }
+
+    /* ── FOOTER ── */
+    footer { background: #111; color: #aaa; padding: 56px 40px 28px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; max-width: 1100px; margin: 0 auto 48px; }
+    .footer-brand p { font-size: 13px; color: #777; margin-top: 14px; line-height: 1.7; max-width: 260px; }
+    .footer-col h4 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 13px; color: #fff; margin-bottom: 16px; letter-spacing: 0.5px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a { text-decoration: none; color: #777; font-size: 13px; }
+    .footer-col ul li a:hover { color: #a5b4fc; }
+    /* Vendor lock-in: "Export my site" is greyed out in footer */
+    .footer-col ul li a.locked-link { color: #3a3a3a; cursor: not-allowed; position: relative; }
+    .footer-col ul li a.locked-link::after { content: ' — Pro+ only'; font-size: 10px; color: #4f46e5; }
+    .footer-bottom { border-top: 1px solid #222; padding-top: 24px; text-align: center; font-size: 12px; color: #555; max-width: 1100px; margin: 0 auto; }
+
+    /* ── PITCH NOTE ── */
+    .template-note { position: fixed; bottom: 18px; right: 18px; background: #111; color: #fff; font-size: 11px; font-family: 'Poppins', sans-serif; padding: 8px 14px; border-radius: 6px; z-index: 9999; opacity: 0.85; pointer-events: none; letter-spacing: 0.3px; }
+    .template-note span { color: #a5b4fc; font-weight: 700; }
+
+    /* ── TOOLTIP UTILITY ── */
+    [data-tip] { position: relative; cursor: help; }
+    [data-tip]::before {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a2e;
+      color: #e2e8f0;
+      font-size: 11.5px;
+      padding: 7px 11px;
+      border-radius: 6px;
+      width: 200px;
+      text-align: center;
+      line-height: 1.5;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 20;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    [data-tip]:hover::before { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">Tech<span>Flow</span></div>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <a href="#" class="nav-cta">Get Started Free</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🚀 Now with AI-Powered Tools</div>
+    <!-- The headline is generic enough to belong to any of 10,000 SaaS sites -->
+    <h1>Grow Your Business with Smarter Solutions</h1>
+    <p>Everything you need to manage, scale, and succeed — all in one powerful platform built for modern teams.</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-primary">Start Free Trial</a>
+      <!-- WEAK POINT 1 — SCALABILITY CEILING: the "Enterprise Scale" CTA is visibly disabled -->
+      <span class="ceiling-note">
+        <a href="#" class="btn-secondary">Enterprise Scale →</a>
+        <span class="ceiling-tooltip">Custom backend logic & bespoke portals<br>require a plan upgrade — or a full migration.</span>
+      </span>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF — COOKIE-CUTTER BRAND DILUTION -->
+  <div class="logos-bar">
+    <p>Trusted by 2,000+ businesses worldwide</p>
+    <div class="logo-row">
+      <!-- WEAK POINT 2 — BRAND DILUTION: hover each logo to see the joke -->
+      <div class="logo-pill" data-same="Uses this exact template">ACME CO</div>
+      <div class="logo-pill" data-same="Same hero section, different logo">NEXATECH</div>
+      <div class="logo-pill" data-same="Also on the purple gradient">BLUEWAVE</div>
+      <div class="logo-pill" data-same="Indistinguishable from ACME CO">ORION INC</div>
+      <div class="logo-pill" data-same="Could be your competitor's site">STACKR</div>
+    </div>
+  </div>
+
+  <!-- LOOKALIKE ALERT BAR — subtle brand dilution signal -->
+  <div class="lookalike-bar">
+    <p><strong>👀 Did you notice?</strong> This layout, colour palette, and section structure is shared by an estimated <strong>~340,000 active websites</strong> built on AI website builders this year.</p>
+    <div class="same-sites">
+      <span class="same-tag">yourcompetitor.com — same template</span>
+      <span class="same-tag">thatotherbrand.co — same template</span>
+      <span class="same-tag">yourbusiness.com — same template</span>
+    </div>
+  </div>
+
+  <!-- FEATURES — strategy void + scalability ceiling -->
+  <section>
+    <div class="section-label">Why TechFlow</div>
+    <h2>Everything You Need to Succeed</h2>
+    <p class="section-sub">Our platform gives you the tools to move faster, work smarter, and grow — up to a point.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Lightning Fast Setup</h3>
+        <!-- "Setup" not "Performance" — subtle downgrade in promise -->
+        <p>Get online in minutes with drag-and-drop simplicity. Speed to launch has never been easier — or more standardised.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Standard Security</h3>
+        <p>We handle the basics so you don't have to. Enterprise-grade compliance, custom security policies, and audit logs are available on request — at additional cost.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Built-In Analytics</h3>
+        <!-- Strategy void: analytics that don't connect to KPIs -->
+        <p>Track page views, clicks, and sessions right out of the box. Custom KPI dashboards, funnel analysis, and cohort tracking are not included.</p>
+      </div>
+
+      <!-- WEAK POINT 1 — SCALABILITY: locked feature card -->
+      <div class="feature-card locked">
+        <div class="feature-icon">⚙️</div>
+        <h3>Custom Business Logic</h3>
+        <p>Build workflows tailored to your exact process — conditional rules, multi-step automations, and API-driven pipelines.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔗</div>
+        <h3>100+ Pre-Built Integrations</h3>
+        <!-- Caveat embedded -->
+        <p>Connect with Slack, HubSpot, and Zapier in one click. Need a bespoke integration with your internal systems? That's a custom development project — not included.</p>
+      </div>
+
+      <!-- WEAK POINT 4 — STRATEGY VOID: locked feature card -->
+      <div class="feature-card locked">
+        <div class="feature-icon">🗺️</div>
+        <h3>Digital Strategy & UX Research</h3>
+        <p>Architecture built around your long-term KPIs, user research, and competitive positioning — not just what you asked for.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS — with the hidden Step 4 -->
+  <section class="how-section">
+    <div class="section-label">Simple Process</div>
+    <h2>How It Works</h2>
+    <p class="section-sub">Get up and running in minutes with our simple three-step process.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Create Your Account</h3>
+        <p>Sign up for free — no credit card required. Takes less than 60 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Set Up Your Workspace</h3>
+        <p>Customize your dashboard, invite your team, and connect your pre-approved tools.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Launch &amp; Grow</h3>
+        <p>Go live, track results, and scale your business — within the limits of the platform.</p>
+      </div>
+      <!-- WEAK POINT 1 — SCALABILITY CEILING: the ghost step, hover to reveal -->
+      <div class="step hidden-step" data-tip="The step they don't advertise.">
+        <div class="step-num">4</div>
+        <h3>Migrate Everything</h3>
+        <p>When you outgrow the platform, rebuild from scratch — losing your data, your SEO, and months of work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS — all identical avatars, copy-paste vagueness -->
+  <section>
+    <div class="section-label">Customer Stories</div>
+    <h2>What Our Customers Say</h2>
+    <!-- WEAK POINT 4 — STRATEGY VOID: testimonials are generic, contain no specific outcomes -->
+    <p class="section-sub">Real quotes from real users — none of which mention a specific business outcome, KPI improvement, or strategic win.</p>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"TechFlow is so easy to use. We were up and running really fast and the interface is very intuitive. Highly recommend to anyone!"</p>
+        <div class="reviewer">
+          <div class="avatar">S</div>
+          <div class="reviewer-info">
+            <strong>Sarah M.</strong>
+            <span>Small Business Owner</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Really great platform. Does what it says. We had a few limitations but for most things it works perfectly well for us right now."</p>
+        <div class="reviewer">
+          <!-- WEAK POINT 2: every avatar is the same gradient — intentional sameness -->
+          <div class="avatar">J</div>
+          <div class="reviewer-info">
+            <strong>James O.</strong>
+            <span>Founder, Tech Startup</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>"Looks professional and was affordable to get started. We're happy with it for now — will see how things go as we grow."</p>
+        <div class="reviewer">
+          <div class="avatar">L</div>
+          <div class="reviewer-info">
+            <strong>Lisa C.</strong>
+            <span>Marketing Manager</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING — THE ILLUSION OF CHEAP -->
+  <section class="pricing-section">
+    <div class="section-label">Simple Pricing</div>
+    <h2>Plans for Every Stage</h2>
+    <!-- WEAK POINT 3 — ILLUSION OF CHEAP: asterisk in the subheading -->
+    <p class="section-sub">Start for free and scale as you grow. <span data-tip="Transaction fees, add-on charges, and migration costs apply. See terms.">No hidden fees*</span></p>
+    <div class="pricing-grid">
+
+      <!-- STARTER — hover the price to see the real cost -->
+      <div class="pricing-card">
+        <h3>Starter</h3>
+        <div class="price-wrapper">
+          <div class="price"><sup>$</sup>15</div>
+          <div class="price-real-cost">
+            <strong>What it actually costs:</strong>
+            + 2% transaction fee on all sales<br>
+            + $12/mo for custom domain<br>
+            + $19/mo for removing branding<br>
+            + $29/mo for basic analytics<br>
+            <span style="color:#fbd38d; margin-top:6px; display:block;">Real monthly cost: ~$75+</span>
+          </div>
+        </div>
+        <div class="price-mo">/ month</div>
+        <div class="price-desc">Perfect for getting started</div>
+        <ul class="pricing-features">
+          <li>Up to 3 pages</li>
+          <li>TechFlow subdomain only</li>
+          <li class="caveat">Custom domain — add-on required *</li>
+          <li class="caveat">TechFlow branding on all pages *</li>
+          <li class="locked-feat">Custom code or scripts</li>
+          <li class="locked-feat">Export your site files</li>
+        </ul>
+        <a href="#" class="btn-plan btn-plan-outline">Get Started</a>
+      </div>
+
+      <!-- PRO — the lock-in plan -->
+      <div class="pricing-card popular">
+        <div class="popular-badge">Most Popular</div>
+        <h3>Pro</h3>
+        <div class="price-wrapper">
+          <div class="price"><sup>$</sup>49</div>
+          <div class="price-real-cost">
+            <strong>The lock-in plan:</strong>
+            Your content, assets, and structure<br>
+            are stored in our proprietary format.<br>
+            Leaving means starting over.<br>
+            <span style="color:#fbd38d; margin-top:6px; display:block;">You're renting, not owning.</span>
+          </div>
+        </div>
+        <div class="price-mo">/ month</div>
+        <div class="price-desc">Best for growing teams</div>
+        <ul class="pricing-features">
+          <li>Up to 10 pages</li>
+          <li>Custom domain included</li>
+          <li>Remove TechFlow branding</li>
+          <li class="caveat">Advanced analytics — add-on required *</li>
+          <li class="caveat">Custom integrations — per-integration fee *</li>
+          <li class="locked-feat">Export or migrate your site</li>
+        </ul>
+        <a href="#" class="btn-plan btn-plan-filled">Start Free Trial</a>
+      </div>
+
+      <!-- ENTERPRISE — the migration bill -->
+      <div class="pricing-card">
+        <h3>Enterprise</h3>
+        <div class="price" style="font-size:28px; padding-top:8px; line-height:1.2;">
+          Contact<br>Sales
+        </div>
+        <div class="price-mo">/ month</div>
+        <div class="price-desc">For when you've outgrown the platform</div>
+        <ul class="pricing-features">
+          <li>Unlimited pages</li>
+          <li>Dedicated account manager</li>
+          <li class="caveat">Custom features — scoped &amp; quoted separately *</li>
+          <li class="caveat">Migration assistance — billed at hourly rate *</li>
+          <li class="caveat">Data export — subject to approval *</li>
+          <!-- WEAK POINT 3 — ILLUSION OF CHEAP: the brutal honest item -->
+          <li style="color:#c05621; font-size:12.5px; border-bottom:none;">⚠️ Most clients at this stage rebuild on a custom platform.</li>
+        </ul>
+        <a href="#" class="btn-plan btn-plan-outline">Talk to Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ — strategy void exposed -->
+  <div class="faq-section padded">
+    <div class="section-label">FAQ</div>
+    <h2 style="margin-bottom:40px;">Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <div class="faq-q">Is there a free trial?</div>
+      <div class="faq-a">Yes — 14 days, no credit card required. After that, you'll need a paid plan to keep your site live. If you don't upgrade, your site goes offline and your content is held in our system for 30 days before deletion.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I fully customise my site's design and functionality?</div>
+      <!-- WEAK POINT 2 & 4 — brand dilution + strategy void -->
+      <div class="faq-a">You can customise within the bounds of our template library — colours, fonts, and layout blocks. <span class="caveat-inline">Custom CSS is available on Pro+, but JavaScript injection and backend logic require our Enterprise plan or a separate custom development engagement.</span> Our AI generates designs based on your inputs, though results may look similar to other sites in your industry.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I export or move my site to another platform?</div>
+      <!-- WEAK POINT 3 — vendor lock-in -->
+      <div class="faq-a">Content can be exported as a PDF summary on Pro+ plans. <span class="caveat-inline">Full code export, database migration, and asset portability are not supported.</span> Moving to a custom-built platform typically requires rebuilding your site from scratch — which is why many of our Enterprise customers engage a web development agency for the transition.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Does TechFlow help with digital strategy or UX research?</div>
+      <!-- WEAK POINT 4 — strategy void -->
+      <div class="faq-a">TechFlow builds what you describe. <span class="caveat-inline">We don't conduct user research, competitive audits, or long-term KPI planning — the platform responds to your inputs, not your business goals.</span> For strategic guidance, we recommend working with a dedicated digital agency.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What happens if I need a feature that isn't on the platform?</div>
+      <div class="faq-a">You can submit a feature request — our team reviews these quarterly. <span class="caveat-inline">If a feature is critical to your business and isn't on our roadmap, your options are limited: workarounds using third-party add-ons (at additional cost), or migrating to a custom-built solution.</span></div>
+    </div>
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <h2>Ready to Get Started?</h2>
+    <p>Perfect for launching fast. Just know where the ceiling is before you build your business on it.</p>
+    <a href="#" class="btn-primary">Start Your Free Trial →</a>
+  </div>
+
+  <!-- FOOTER — vendor lock-in signal -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:20px; color:#a5b4fc;">Tech<span style="color:#fff;">Flow</span></div>
+        <p>The all-in-one platform for modern businesses — until you need something it can't do.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Changelog</a></li>
+          <!-- WEAK POINT 3 — lock-in: export is locked -->
+          <li><a href="#" class="locked-link">Export My Site</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <!-- Locked: migrate away -->
+          <li><a href="#" class="locked-link">Migrate Away</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 TechFlow Solutions. All rights reserved. &nbsp;·&nbsp; Made with Framer &nbsp;·&nbsp; <span style="color:#3a3a3a;">You do not own this site's codebase.</span>
+    </div>
+  </footer>
+
+  <div class="template-note">Built with a <span>no-code builder</span> — spot the difference?</div>
+
+</body>
+</html>
